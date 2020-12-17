@@ -12,7 +12,8 @@
             <th:block th:if="${message}">
                 <div class="alert alert-success" th:text="${message}"></div>
             </th:block>
-            <form th:action="@{/customers/create}" th:object="${customer}" method="post">
+            <form th:action="@{/customers/edit}" th:object="${customer}" method="post">
+                <input type="hidden" th:field="*{id}">
                 <div class="row mb-3">
                     <label th:for="*{name}" class="col-form-label col-md-2">Name:</label>
                     <div class="col-md-10">
@@ -33,7 +34,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary">Create customer</button>
+                        <button type="submit" class="btn btn-primary">Update customer</button>
                     </div>
                 </div>
             </form>
