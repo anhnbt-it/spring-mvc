@@ -10,23 +10,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/customers")
 public class CustomerController {
 
-//    private final CustomerService customerService;
-//
-//    @Autowired
-//    public CustomerController(CustomerService customerService) {
-//        this.customerService = customerService;
-//    }
+    private final CustomerService customerService;
+
+    @Autowired
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     @GetMapping
-    public String get() {
-        // Call service findAll()
-        System.out.println("Hello World!");
-        return "customers/index";
+    public ModelAndView get() {
+        Iterable<Customer> customers = customerService.findAll();
+        ModelAndView modelAndView = new ModelAndView("customers/index");
+        modelAndView.addObject("customers", customers);
+        modelAndView.addObject("title", "List Customers");
+        return modelAndView;
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
