@@ -15,6 +15,10 @@ dependencies {
     compile('javax.servlet:javax.servlet-api:3.1.0')
     // Hỗ trợ WebApplicationInitializer
     compile('org.springframework:spring-webmvc:4.3.4.RELEASE')
+    // Hỗ trợ JPA
+    compile('org.springframework.data:spring-data-jpa:2.4.2')
+    // Hỗ trợ MySQL
+    compile('mysql:mysql-connector-java:8.0.22')
     // Hỗ trợ Annotation
     compile('org.hibernate:hibernate-core:5.4.25.Final')
     // Hỗ trợ JSTL
