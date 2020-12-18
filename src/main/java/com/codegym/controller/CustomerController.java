@@ -1,26 +1,28 @@
 package com.codegym.controller;
 
 import com.codegym.model.Customer;
+import com.codegym.model.Province;
 import com.codegym.service.CustomerService;
+import com.codegym.service.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Optional;
 
 @Controller
-@RequestMapping("/customers")
+@RequestMapping("customers")
 public class CustomerController {
-
-    private final CustomerService customerService;
-
     @Autowired
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
+    private CustomerService customerService;
+    @Autowired
+    private ProvinceService provinceService;
+
+    @ModelAttribute("provinces")
+    public Iterable<Province> provinces() {
+        return provinceService.findAll();
     }
 
     @GetMapping
@@ -32,24 +34,71 @@ public class CustomerController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String getNewForm() {
-        return "customers/create";
+    @GetMapping("create")
+    public ModelAndView getNewForm() {
+        ModelAndView modelAndView = new ModelAndView("customers/create2");
+        modelAndView.addObject("customer", new Customer());
+        return modelAndView;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String add(BindingResult result) {
-        if (result.hasErrors()) {
-            return "customers/create";
-        }
-        // Call Service save()
-        return "redirect:/customers";
+    @PostMapping("create-customer")
+    public ModelAndView create(@ModelAttribute("customer") Customer customer) {
+        customerService.save(customer);
+        ModelAndView modelAndView = new ModelAndView("customers/create2");
+        modelAndView.addObject("customer", new Customer());
+        return modelAndView;
+    }
+    @PostMapping("create")
+    public ModelAndView addCustomer(@ModelAttribute("customer") Customer customer) {
+        customerService.save(customer);
+        ModelAndView modelAndView = new ModelAndView("customers/create");
+        modelAndView.addObject("customer", new Customer());
+        modelAndView.addObject("message", "New record created successfully");
+        return modelAndView;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String findCustomer(@PathVariable Long id) {
-        // Call service findOne(id);
-        // Model addAttribute
-        return "customers/display";
-    }
+//    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+//    public ModelAndView showEditForm(@PathVariable Long id) {
+//        Optional<Customer> customer = customerService.findById(id);
+//        ModelAndView modelAndView = new ModelAndView();
+//        if (customer.isPresent()) {
+//            modelAndView.setViewName("customers/edit");
+//            modelAndView.addObject("customer", customer.get());
+//            modelAndView.addObject("provinces", provinces());
+//            modelAndView.addObject("title", "Edit Customer");
+//        } else {
+//            modelAndView.setViewName("error");
+//            modelAndView.addObject("message", "Customer not found.");
+//        }
+//        return modelAndView;
+//    }
+//
+//    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+//    public String editCustomer(@ModelAttribute("customer") Customer customer, RedirectAttributes redirectAttributes) {
+//        customerService.save(customer);
+//        redirectAttributes.addFlashAttribute("message", "Record updated successfully.");
+//        return "redirect:/customers";
+//    }
+//
+//    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+//    public ModelAndView showDeleteForm(@PathVariable(name = "id") Long id) {
+//        Optional<Customer> customer = customerService.findById(id);
+//        ModelAndView modelAndView = new ModelAndView();
+//        if (customer.isPresent()) {
+//            modelAndView.setViewName("customers/delete");
+//            modelAndView.addObject("customer", customer.get());
+//            modelAndView.addObject("title", "Delete Customer");
+//        } else {
+//            modelAndView.setViewName("error");
+//            modelAndView.addObject("message", "Customer not found.");
+//        }
+//        return modelAndView;
+//    }
+//
+//    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+//    public String deleteCustomer(@ModelAttribute("customer") Customer customer, RedirectAttributes redirectAttributes) {
+//        customerService.remove(customer.getId());
+//        redirectAttributes.addFlashAttribute("message", "Record deleted successfully.");
+//        return "redirect:/customers";
+//    }
 }

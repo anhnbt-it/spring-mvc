@@ -12,16 +12,17 @@
             <th:block th:if="${message}">
                 <div class="alert alert-success" th:text="${message}"></div>
             </th:block>
-            <th:block th:if="${customers.isEmpty()}">
+            <th:block th:if="${!customers.iterator().hasNext()}">
                 <p class="alert alert-warning">No data</p>
             </th:block>
-            <table class="table table-bordered" th:if="${customers.size() > 0   }">
+            <table class="table table-bordered" th:if="${customers.iterator().hasNext()}">
                 <thead>
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Address</th>
+                    <th>Province</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -31,6 +32,7 @@
                     <td th:text="*{c.name}"></td>
                     <td th:text="*{c.email}"></td>
                     <td th:text="*{c.address}"></td>
+                    <td th:text="*{c.province.name}"></td>
                     <td>
                         <a th:href="@{/customers/edit/{id}(id=${c.id})}" class="btn btn-info btn-sm text-white">Edit</a>
                         <a th:href="@{/customers/delete/{id}(id=${c.id})}" class="btn btn-danger btn-lg">Delete</a>

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Optional;
 
 public class CustomerServiceImpl implements CustomerService {
-
     @Autowired
     private CustomerRepository customerRepository;
 
@@ -17,8 +16,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Optional<Customer> findById(Long id) {
-        return customerRepository.findById(id);
+    public Customer findById(Long id) {
+        return customerRepository.findOne(id);
     }
 
     @Override
@@ -28,6 +27,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void remove(Long id) {
-        customerRepository.deleteById(id);
+        customerRepository.delete(id);
     }
 }

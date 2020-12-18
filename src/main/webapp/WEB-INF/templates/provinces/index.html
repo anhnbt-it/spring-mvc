@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head(${title})">
+    <meta charset="UTF-8">
+    <title>List Provinces</title>
+</head>
+<body>
+<div class="container mt-3">
+    <div class="card">
+        <div class="card-header">List Provinces <a th:href="@{/provinces/new}">Add New Province</a></div>
+        <div class="card-body">
+            <th:block th:if="${!provinces.iterator().hasNext()}">
+                <p class="alert alert-warning">No data</p>
+            </th:block>
+            <table class="table table-bordered" th:if="${provinces.iterator().hasNext()}">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p: ${provinces}">
+                    <td th:text="*{p.id}"></td>
+                    <td th:text="*{p.name}"></td>
+                    <td>
+                        <a th:href="@{/provinces/edit/{id}(id=${p.id})}" class="btn btn-info btn-sm text-white">Edit</a>
+                        <a th:href="@{/provinces/delete/{id}(id=${p.id})}" class="btn btn-danger btn-lg">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,11 +1,10 @@
 package com.codegym.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
+@Table
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,21 +12,24 @@ public class Customer {
     private String name;
     private String email;
     private String address;
+    @ManyToOne
+    @JoinColumn(name = "province_id")
+    private Province province;
 
     public Customer() {
     }
 
-    public Customer(String name, String email, String address) {
-        this.name = name;
-        this.email = email;
-        this.address = address;
-    }
+//    public Customer(String name, String email, String address) {
+//        this.name = name;
+//        this.email = email;
+//        this.address = address;
+//    }
 
-    public Customer(Long id, String name, String email, String address) {
-        this.id = id;
+    public Customer(String name, String email, String address, Province province) {
         this.name = name;
         this.email = email;
         this.address = address;
+        this.province = province;
     }
 
     public Long getId() {
@@ -62,6 +64,14 @@ public class Customer {
         this.address = address;
     }
 
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -69,6 +79,7 @@ public class Customer {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
+                ", province=" + province +
                 '}';
     }
 }
