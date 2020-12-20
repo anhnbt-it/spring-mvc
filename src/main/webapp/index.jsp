@@ -11,6 +11,10 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+  <ul>
+    <li><a href="/provinces">Provinces</a></li>
+    <li><a href="/customers">Customers</a></li>
+  </ul>
+
   </body>
 </html>

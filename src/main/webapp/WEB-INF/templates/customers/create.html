@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="layout :: head(${title})">
     <meta charset="UTF-8">
-    <title>Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Create Customer</title>
 </head>
 <body>
 <div class="container mt-3">
     <div class="card">
         <div class="card-header">Create Customer <a th:href="@{/customers}">List Customers</a></div>
         <div class="card-body">
-            <form th:action="@{/customers/create2}" th:object="${customer}" method="post">
+            <th:block th:if="${message}">
+                <div class="alert alert-success" th:text="${message}"></div>
+            </th:block>
+            <form th:action="@{/customers/create}" th:object="${customer}" method="post">
                 <div class="row mb-3">
-<!--                    <label class="col-form-label col-md-2">Name:</label>-->
+                    <label class="col-form-label col-md-2">Name:</label>
                     <div class="col-md-10">
                         <input type="text" th:field="*{name}" class="form-control" required>
                     </div>
                 </div>
                 <div class="row mb-3">
-<!--                    <label class="col-form-label col-md-2">Email:</label>-->
+                    <label class="col-form-label col-md-2">Email:</label>
                     <div class="col-md-10">
                         <input type="email" th:field="*{email}" class="form-control" required>
                     </div>
                 </div>
                 <div class="row mb-3">
-<!--                    <label class="col-form-label col-md-2">Address:</label>-->
+                    <label class="col-form-label col-md-2">Address:</label>
                     <div class="col-md-10">
                         <input type="text" th:field="*{address}" class="form-control" required>
                     </div>
                 </div>
                 <div class="row mb-3">
-<!--                    <label class="col-form-label col-md-2">Province:</label>-->
+                    <label class="col-form-label col-md-2">Province:</label>
                     <div class="col-md-10">
                         <select th:field="*{province}" class="form-control">
                             <option th:each="p : ${provinces}" th:value="${p.id}" th:text="${p.name}"></option>

@@ -1,20 +1,15 @@
 package com.codegym.controller;
 
-import com.codegym.model.Customer;
 import com.codegym.model.Province;
-import com.codegym.service.CustomerService;
 import com.codegym.service.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Optional;
-
 @Controller
-@RequestMapping("/provinces")
+@RequestMapping("provinces")
 public class ProvinceController {
 
     private final ProvinceService provinceService;
@@ -33,22 +28,22 @@ public class ProvinceController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    @RequestMapping(value = "create", method = RequestMethod.GET)
     public ModelAndView getNewForm() {
-        ModelAndView modelAndView = new ModelAndView("provinces/new");
+        ModelAndView modelAndView = new ModelAndView("provinces/create");
         modelAndView.addObject("province", new Province());
         modelAndView.addObject("title", "Add New Province");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    @RequestMapping(value = "create", method = RequestMethod.POST)
     public String addProvince(@ModelAttribute Province province, RedirectAttributes redirectAttributes) {
         provinceService.save(province);
         redirectAttributes.addFlashAttribute("message", "New record created successfully.");
-        return "redirect:/provinces/new";
+        return "redirect:/provinces/create";
     }
 
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
     public ModelAndView showEditForm(@PathVariable Long id) {
         Province province = provinceService.findById(id);
         ModelAndView modelAndView = new ModelAndView();
@@ -63,14 +58,14 @@ public class ProvinceController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
     public String editProvince(@ModelAttribute Province province, RedirectAttributes redirectAttributes) {
         provinceService.save(province);
         redirectAttributes.addFlashAttribute("message", "Record updated successfully.");
-        return "redirect:/provinces";
+        return "redirect:/provinces/edit/" + province.getId();
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public ModelAndView showDeleteForm(@PathVariable(name = "id") Long id) {
         Province province = provinceService.findById(id);
         ModelAndView modelAndView = new ModelAndView();
@@ -85,7 +80,7 @@ public class ProvinceController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
     public String deleteProvince(@ModelAttribute("province") Province province, RedirectAttributes redirectAttributes) {
         provinceService.remove(province.getId());
         redirectAttributes.addFlashAttribute("message", "Record deleted successfully.");

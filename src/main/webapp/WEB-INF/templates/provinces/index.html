@@ -7,8 +7,11 @@
 <body>
 <div class="container mt-3">
     <div class="card">
-        <div class="card-header">List Provinces <a th:href="@{/provinces/new}">Add New Province</a></div>
+        <div class="card-header">List Provinces <a th:href="@{/provinces/create}">Add New Province</a></div>
         <div class="card-body">
+            <th:block th:if="${message}">
+                <p class="alert alert-info" th:text="${message}"></p>
+            </th:block>
             <th:block th:if="${!provinces.iterator().hasNext()}">
                 <p class="alert alert-warning">No data</p>
             </th:block>
