@@ -36,6 +36,7 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableJpaRepositories("com.codegym.repositories")
 @EnableTransactionManagement
+// Hỗ trợ mapping tự động Pageable
 @EnableSpringDataWebSupport
 @ComponentScan("com.codegym")
 public class MyWebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {

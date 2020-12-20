@@ -15,6 +15,18 @@
             <th:block th:if="${!customers.iterator().hasNext()}">
                 <p class="alert alert-warning">No data</p>
             </th:block>
+            <form th:action="@{/customers}" class="row row-cols-lg-auto g-3 align-items-center mb-3">
+                <div class="col-12">
+                    <label class="visually-hidden" for="inlineFormInputGroupName">Search by Name</label>
+                    <div class="input-group">
+                        <div class="input-group-text">Search by Name</div>
+                        <input name="s" type="text" th:value="${search.isPresent()} ? ${search.get()} : ''" class="form-control" id="inlineFormInputGroupName" placeholder="Enter name...">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
             <table class="table table-bordered" th:if="${customers.iterator().hasNext()}">
                 <thead>
                 <tr>
@@ -40,6 +52,20 @@
                 </tr>
                 </tbody>
             </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <th:block th:if="${search.isPresent()}">
+                        
+                    </th:block>
+                    <li class="page-item"><a class="page-link" th:href="@{'/customers'(page=${customers.number - 1})}"
+                                             th:if="${customers.hasPrevious()}">Previous</a></li>
+                    <li class="page-item disabled">
+                        <span class="page-link" th:text="${customers.number + 1} + '/' + ${customers.totalPages}"></span>
+                    </li>
+                    <li class="page-item"><a class="page-link" th:href="@{'/customers'(page=${customers.number + 1})}"
+                                             th:if="${customers.hasNext()}">Next</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
