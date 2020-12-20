@@ -4,8 +4,6 @@ import com.codegym.model.Customer;
 import com.codegym.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Optional;
-
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;

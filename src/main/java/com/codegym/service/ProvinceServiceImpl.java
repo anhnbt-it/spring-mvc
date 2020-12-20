@@ -4,8 +4,6 @@ import com.codegym.model.Province;
 import com.codegym.repositories.ProvinceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Optional;
-
 public class ProvinceServiceImpl implements ProvinceService {
 
     @Autowired
