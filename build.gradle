@@ -27,6 +27,8 @@ dependencies {
     compile('org.apache.taglibs:taglibs-standard-impl:1.2.5')
     // Hỗ trợ Thymeleaf
     compile('org.thymeleaf:thymeleaf-spring4:3.0.11.RELEASE')
+    // Hỗ trợ Log
+    compile group: 'org.springframework', name: 'spring-aspects', version: '4.3.25.RELEASE'
 }
 
 test {

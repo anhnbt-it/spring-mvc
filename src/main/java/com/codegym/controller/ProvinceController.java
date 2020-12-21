@@ -45,7 +45,12 @@ public class ProvinceController {
 
     @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
     public ModelAndView showEditForm(@PathVariable Long id) {
-        Province province = provinceService.findById(id);
+        Province province = null;
+        try {
+            province = provinceService.findOne(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         ModelAndView modelAndView = new ModelAndView();
         if (province!=null) {
             modelAndView.setViewName("provinces/edit");
@@ -67,7 +72,12 @@ public class ProvinceController {
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public ModelAndView showDeleteForm(@PathVariable(name = "id") Long id) {
-        Province province = provinceService.findById(id);
+        Province province = null;
+        try {
+            province = provinceService.findOne(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         ModelAndView modelAndView = new ModelAndView();
         if (province!=null) {
             modelAndView.setViewName("provinces/delete");
@@ -82,7 +92,7 @@ public class ProvinceController {
 
     @RequestMapping(value = "delete", method = RequestMethod.POST)
     public String deleteProvince(@ModelAttribute("province") Province province, RedirectAttributes redirectAttributes) {
-        provinceService.remove(province.getId());
+        provinceService.delete(province.getId());
         redirectAttributes.addFlashAttribute("message", "Record deleted successfully.");
         return "redirect:/provinces";
     }

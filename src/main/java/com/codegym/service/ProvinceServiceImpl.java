@@ -3,6 +3,10 @@ package com.codegym.service;
 import com.codegym.model.Province;
 import com.codegym.repositories.ProvinceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public class ProvinceServiceImpl implements ProvinceService {
 
@@ -10,22 +14,72 @@ public class ProvinceServiceImpl implements ProvinceService {
     private ProvinceRepository provinceRepository;
 
     @Override
-    public Iterable<Province> findAll() {
-        return provinceRepository.findAll();
+    public List<Province> findAll() {
+        return null;
     }
 
     @Override
-    public Province findById(Long id) {
-        return provinceRepository.findOne(id);
+    public Page<Province> findAll(Pageable pageable) throws Exception {
+        return null;
     }
 
     @Override
-    public void save(Province obj) {
-        provinceRepository.save(obj);
+    public List<Province> search(String keyword) {
+        return null;
     }
 
     @Override
-    public void remove(Long id) {
-        provinceRepository.delete(id);
+    public Page<Province> search(String keyword, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public Province findOne(Long id) throws Exception {
+        return null;
+    }
+
+    @Override
+    public Province save(Province province) {
+        return null;
+    }
+
+    @Override
+    public List<Province> save(List<Province> provinces) {
+        return null;
+    }
+
+    @Override
+    public boolean exists(Long id) {
+        return false;
+    }
+
+    @Override
+    public List<Province> findAll(List<Long> ids) {
+        return null;
+    }
+
+    @Override
+    public long count() {
+        return 0;
+    }
+
+    @Override
+    public void delete(Long id) {
+
+    }
+
+    @Override
+    public void delete(Province obj) {
+
+    }
+
+    @Override
+    public void delete(List<Province> provinces) {
+
+    }
+
+    @Override
+    public void deleteAll() {
+
     }
 }

@@ -4,12 +4,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table
-public class Customer {
+@Table(name = "customers")
+public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(unique = true, length = 100)
     private String email;
     private String address;
     @ManyToOne
@@ -18,12 +19,6 @@ public class Customer {
 
     public Customer() {
     }
-
-//    public Customer(String name, String email, String address) {
-//        this.name = name;
-//        this.email = email;
-//        this.address = address;
-//    }
 
     public Customer(String name, String email, String address, Province province) {
         this.name = name;

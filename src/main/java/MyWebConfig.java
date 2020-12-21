@@ -1,3 +1,4 @@
+import com.codegym.concern.Logger;
 import com.codegym.formatter.ProvinceFormatter;
 import com.codegym.service.CustomerService;
 import com.codegym.service.CustomerServiceImpl;
@@ -10,6 +11,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.FormatterRegistry;
@@ -38,6 +40,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 // Hỗ trợ mapping tự động Pageable
 @EnableSpringDataWebSupport
+@EnableAspectJAutoProxy
 @ComponentScan("com.codegym")
 public class MyWebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
@@ -125,6 +128,11 @@ public class MyWebConfig extends WebMvcConfigurerAdapter implements ApplicationC
     @Bean
     public ProvinceService provinceService() {
         return new ProvinceServiceImpl();
+    }
+
+    @Bean
+    public Logger logger() {
+        return new Logger();
     }
 
     @Override

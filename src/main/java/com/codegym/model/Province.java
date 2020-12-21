@@ -5,14 +5,12 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table
-public class Province {
+@Table(name = "customers")
+public class Province implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany(targetEntity = Customer.class)
-    private List<Customer> customers;
 
     public Province() {
     }
@@ -31,13 +29,5 @@ public class Province {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
     }
 }
