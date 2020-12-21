@@ -30,21 +30,17 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ModelAndView get(@RequestParam("s") Optional<String> s, Pageable pageable) {
-        Page<Customer> customers = null;
-        if (s.isPresent()) {
-            customers = customerService.findAllByNameContaining(s.get(), pageable);
+    public ModelAndView get(@RequestParam("s") Optional<String> keyword, Pageable pageable) throws Exception {
+        Page<Customer> customers;
+        if (keyword.isPresent()) {
+            customers = customerService.findAllByNameContaining(keyword.get(), pageable);
         } else {
-            try {
-                customers = customerService.findAll(pageable);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            customers = customerService.findAll(pageable);
         }
         ModelAndView modelAndView = new ModelAndView("customers/index");
         modelAndView.addObject("customers", customers);
         modelAndView.addObject("title", "List Customers");
-        modelAndView.addObject("search", s);
+        modelAndView.addObject("search", keyword);
         return modelAndView;
     }
 
@@ -58,8 +54,6 @@ public class CustomerController {
 
     @PostMapping("create")
     public ModelAndView addCustomer(@ModelAttribute("customer") Customer customer, RedirectAttributes redirectAttributes) {
-//        customerService.save(customer);
-//        return "redirect:/customers/create";
         try {
             redirectAttributes.addFlashAttribute("message", "New record created successfully.");
             customerService.save(customer);
@@ -91,7 +85,7 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public ModelAndView editCustomer(@ModelAttribute("customer") Customer customer, RedirectAttributes redirectAttributes) throws DuplicateEmailException {
+    public ModelAndView editCustomer(@ModelAttribute("customer") Customer customer, RedirectAttributes redirectAttributes) {
         try {
             redirectAttributes.addFlashAttribute("message", "Record updated successfully.");
             customerService.save(customer);
@@ -132,8 +126,7 @@ public class CustomerController {
     public ModelAndView showInformation(@PathVariable Long id) {
         try {
             ModelAndView modelAndView = new ModelAndView("customers/edit");
-            Customer customer = null;
-            customer = customerService.findOne(id);
+            Customer customer = customerService.findOne(id);
             modelAndView.addObject("customer", customer);
             return modelAndView;
         } catch (Exception e) {
