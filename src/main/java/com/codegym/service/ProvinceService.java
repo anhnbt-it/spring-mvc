@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ProvinceService {
-    List<Province> findAll();
+    Iterable<Province> findAll();
 
     Page<Province> findAll(Pageable pageable) throws Exception;
 
@@ -19,11 +19,11 @@ public interface ProvinceService {
 
     Province save(Province province);
 
-    List<Province> save(List<Province> provinces);
+    Iterable<Province> save(List<Province> provinces);
 
     boolean exists(Long id);
 
-    List<Province> findAll(List<Long> ids);
+    Iterable<Province> findAll(List<Long> ids);
 
     long count();
 

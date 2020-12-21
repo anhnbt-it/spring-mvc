@@ -14,13 +14,13 @@ public class ProvinceServiceImpl implements ProvinceService {
     private ProvinceRepository provinceRepository;
 
     @Override
-    public List<Province> findAll() {
-        return null;
+    public Iterable<Province> findAll() {
+        return provinceRepository.findAll();
     }
 
     @Override
     public Page<Province> findAll(Pageable pageable) throws Exception {
-        return null;
+        return provinceRepository.findAll(pageable);
     }
 
     @Override
@@ -35,51 +35,51 @@ public class ProvinceServiceImpl implements ProvinceService {
 
     @Override
     public Province findOne(Long id) throws Exception {
-        return null;
+        return provinceRepository.findOne(id);
     }
 
     @Override
     public Province save(Province province) {
-        return null;
+        return provinceRepository.save(province);
     }
 
     @Override
-    public List<Province> save(List<Province> provinces) {
-        return null;
+    public Iterable<Province> save(List<Province> provinces) {
+        return provinceRepository.save(provinces);
     }
 
     @Override
     public boolean exists(Long id) {
-        return false;
+        return provinceRepository.exists(id);
     }
 
     @Override
-    public List<Province> findAll(List<Long> ids) {
-        return null;
+    public Iterable<Province> findAll(List<Long> ids) {
+        return provinceRepository.findAll(ids);
     }
 
     @Override
     public long count() {
-        return 0;
+        return provinceRepository.count();
     }
 
     @Override
     public void delete(Long id) {
-
+        provinceRepository.delete(id);
     }
 
     @Override
-    public void delete(Province obj) {
-
+    public void delete(Province province) {
+        provinceRepository.delete(province);
     }
 
     @Override
     public void delete(List<Province> provinces) {
-
+        provinceRepository.delete(provinces);
     }
 
     @Override
     public void deleteAll() {
-
+        provinceRepository.deleteAll();
     }
 }

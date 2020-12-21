@@ -25,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Page<Customer> findAll(Pageable pageable) throws Exception {
-        if (true) throw new Exception("a dummy exception");
+//        if (true) throw new Exception("a dummy exception");
         return customerRepository.findAll(pageable);
     }
 
